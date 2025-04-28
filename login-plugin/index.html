@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统界面</title>
+    <!--写着玩的登录页-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .login-card {
+            width: 70%;
+            height: 70vh;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .login-title {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            font-size: 1rem;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(79, 70, 229, 0.6);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: rgba(79, 70, 229, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .extra-options {
+            margin-top: 1rem;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .extra-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .extra-link:hover {
+            color: rgba(79, 70, 229, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .login-card {
+                width: 90%;
+                height: auto;
+                padding: 2rem 1rem;
+            }
+
+            .login-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* 主界面样式 */
+        .dashboard {
+            display: none;
+            width: 70%;
+            height: 70vh;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .dashboard.active {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 25%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 2rem 1rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .main-content {
+            width: 75%;
+            height: 100%;
+            padding: 2rem;
+            position: relative;
+            perspective: 1500px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            will-change: transform;
+        }
+
+        .nav-container {
+            position: relative;
+            margin-top: 1rem;
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            margin: 8px 0;
+            border-radius: 8px;
+            color: #333;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+        }
+
+        .nav-background-indicator {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 44px;
+            background: rgba(79, 70, 229, 0.3);
+            border-radius: 8px;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .nav-item.active {
+            color: #fff;
+            background: none;
+        }
+
+        .content-section {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translate3d(0, 30px, 0);
+            transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            backface-visibility: hidden;
+            will-change: transform, opacity;
+            padding: 20px;
+        }
+
+        .content-section.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate3d(0, 0, 0);
+            position: relative;
+            transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+        }
+
+        .content-section.previous {
+            opacity: 0;
+            visibility: hidden;
+            transform: translate3d(0, -100%, 0);
+            transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+        }
+
+        .content-section.next {
+            opacity: 0;
+            visibility: hidden;
+            transform: translate3d(0, 100%, 0);
+            transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(220, 38, 38, 0.6);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(220, 38, 38, 0.8);
+        }
+
+        /* 鼠标粒子效果的画布样式 */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* 注册和忘记密码表单样式 */
+        .auth-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            max-width: 500px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .auth-form.active {
+            display: flex;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .auth-form-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .auth-form-overlay.active {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 个人信息页面样式 */
+        .profile-container {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .avatar-container {
+            flex-shrink: 0;
+            width: 150px;
+            height: 150px;
+            position: relative;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .avatar-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: rgba(79, 70, 229, 0.8);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .info-group {
+            margin-bottom: 1rem;
+        }
+
+        .info-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        /* 文章卡片样式 */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .article-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .article-preview {
+            font-size: 0.9rem;
+            color: #666;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 文章详情模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(79, 70, 229, 0.6);
+            color: white;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background: rgba(79, 70, 229, 0.8);
+        }
+
+        .btn-danger {
+            background: rgba(220, 38, 38, 0.6);
+        }
+
+        .btn-danger:hover {
+            background: rgba(220, 38, 38, 0.8);
+        }
+
+        /* 侧边栏用户信息样式 */
+        .sidebar-user-info {
+            text-align: center;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            object-fit: cover;
+        }
+
+        .sidebar-username {
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 时钟样式 */
+        .clock-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 300;
+            transition: all 0.3s ease;
+        }
+
+        .clock-container:hover {
+            transform: translateX(-50%) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* 加载动画样式 */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .welcome-text {
+            font-family: "Microsoft YaHei", sans-serif;
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            white-space: pre;
+            font-weight: 300;
+        }
+
+        .fade-out {
+            animation: fadeOut 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* 修改其他内容的初始状态 */
+        .login-card, .dashboard, .clock-container {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .content-visible {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="welcome-text" id="welcomeText"></div>
+    </div>
+    <div class="clock-container" id="clock">00:00:00</div>
+    <canvas id="particleCanvas"></canvas>
+    <div class="login-card" id="loginCard">
+        <h1 class="login-title">欢迎登录</h1>
+        <form class="login-form">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" class="form-input" placeholder="请输入用户名" required>
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" class="form-input" placeholder="请输入密码" required>
+            </div>
+            <button type="submit" class="login-btn">登录</button>
+            <div class="extra-options">
+                <a href="#" class="extra-link" onclick="showForgotForm(); return false;">忘记密码？</a>
+                <a href="#" class="extra-link" onclick="showRegisterForm(); return false;">立即注册</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- 注册表单 -->
+    <div class="login-card auth-form" id="registerForm">
+        <h1 class="login-title">注册账号</h1>
+        <form class="login-form" id="registerFormContent">
+            <div class="form-group">
+                <label for="regUsername">用户名</label>
+                <input type="text" id="regUsername" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="regPassword">密码</label>
+                <input type="password" id="regPassword" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="regConfirmPassword">确认密码</label>
+                <input type="password" id="regConfirmPassword" class="form-input" required>
+            </div>
+            <button type="submit" class="login-btn">注册</button>
+            <button type="button" class="btn btn-danger" onclick="hideRegisterForm()">取消</button>
+        </form>
+    </div>
+
+    <!-- 忘记密码表单 -->
+    <div class="login-card auth-form" id="forgotForm">
+        <h1 class="login-title">重置密码</h1>
+        <form class="login-form" id="forgotFormContent">
+            <div class="form-group">
+                <label for="resetUsername">用户名</label>
+                <input type="text" id="resetUsername" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="resetPassword">新密码</label>
+                <input type="password" id="resetPassword" class="form-input" required>
+            </div>
+            <button type="submit" class="login-btn">重置密码</button>
+            <button type="button" class="btn btn-danger" onclick="hideForgotForm()">取消</button>
+        </form>
+    </div>
+
+    <div class="dashboard" id="dashboard">
+        <div class="sidebar">
+            <div class="sidebar-user-info">
+                <img src="images/default-avatar.png" alt="头像" class="sidebar-avatar" id="sidebarAvatar">
+                <div class="sidebar-username" id="sidebarUsername">用户名</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-background-indicator"></div>
+                <div class="nav-item active" data-section="user-info">个人信息</div>
+                <div class="nav-item" data-section="account">账户管理</div>
+                <div class="nav-item" data-section="contact">联系方式</div>
+                <div class="nav-item" data-section="content">投放内容</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">退出登录</button>
+        </div>
+        <div class="main-content">
+            <div class="content-section active" id="user-info">
+                <h2 class="section-title">个人信息</h2>
+                <div class="profile-container">
+                    <div class="avatar-container">
+                        <img src="images/default-avatar.png" alt="头像" class="avatar-img" id="userAvatar">
+                        <div class="avatar-upload" onclick="document.getElementById('avatarInput').click()">
+                            <input type="file" id="avatarInput" hidden accept="image/*">
+                            +
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <div class="info-group">
+                            <label class="info-label">用户名</label>
+                            <input type="text" class="form-input" id="profileUsername" readonly>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">电子邮箱</label>
+                            <input type="email" class="form-input" id="profileEmail">
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">个人简介</label>
+                            <textarea class="form-input" id="profileBio" rows="3"></textarea>
+                        </div>
+                        <button class="btn" onclick="saveProfile()">保存修改</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-section" id="account">
+                <h2 class="section-title">账户管理</h2>
+                <div class="form-group">
+                    <label class="info-label">修改密码</label>
+                    <input type="password" class="form-input" id="currentPassword" placeholder="当前密码">
+                    <input type="password" class="form-input" id="newPassword" placeholder="新密码">
+                    <input type="password" class="form-input" id="confirmNewPassword" placeholder="确认新密码">
+                    <button class="btn" onclick="changePassword()">更新密码</button>
+                </div>
+            </div>
+            <div class="content-section" id="contact">
+                <h2 class="section-title">联系方式</h2>
+                <div class="form-group">
+                    <label class="info-label">手机号码</label>
+                    <input type="tel" class="form-input" id="contactPhone">
+                </div>
+                <div class="form-group">
+                    <label class="info-label">QQ</label>
+                    <input type="text" class="form-input" id="contactQQ">
+                </div>
+                <div class="form-group">
+                    <label class="info-label">微信</label>
+                    <input type="text" class="form-input" id="contactWechat">
+                </div>
+                <button class="btn" onclick="saveContact()">保存联系方式</button>
+            </div>
+            <div class="content-section" id="content">
+                <h2 class="section-title">投放内容</h2>
+                <button class="btn" onclick="showNewArticleModal()">新建文章</button>
+                <div class="articles-grid" id="articlesContainer">
+                    <!-- 文章卡片将通过 JavaScript 动态添加 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文章编辑模态框 -->
+    <div class="modal" id="articleModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="hideArticleModal()">&times;</button>
+            <h2 class="section-title" id="articleModalTitle">新建文章</h2>
+            <div class="form-group">
+                <label class="info-label">标题</label>
+                <input type="text" class="form-input" id="articleTitle">
+            </div>
+            <div class="form-group">
+                <label class="info-label">内容</label>
+                <textarea class="form-input" id="articleContent" rows="10"></textarea>
+            </div>
+            <button class="btn" onclick="saveArticle()">保存</button>
+            <button class="btn btn-danger" onclick="hideArticleModal()">取消</button>
+        </div>
+    </div>
+
+    <script>
+        // 背景图片数组
+        const bgImages = [
+            'images/BG1.jpg',
+            'images/BG2.png',
+            'images/BG3.jpg',
+            'images/BG4.jpg'
+        ];
+
+        // 随机选择一个背景图片
+        async function setRandomBackground() {
+            return new Promise((resolve) => {
+                const randomIndex = Math.floor(Math.random() * bgImages.length);
+                const img = new Image();
+                img.onload = () => {
+                    document.body.style.backgroundImage = `url('${bgImages[randomIndex]}')`;
+                    resolve();
+                };
+                img.src = bgImages[randomIndex];
+            });
+        }
+
+        // 页面加载时设置随机背景
+        window.addEventListener('load', setRandomBackground);
+
+        // 处理登录逻辑
+        document.querySelector('.login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const users = getUsers();
+            const user = users[username];
+
+            if (!user || user.password !== password) {
+                alert('用户名或密码错误！');
+                return;
+            }
+
+            saveCurrentUser({ username, ...user });
+            // 修改登录卡片和仪表板的显示状态
+            document.getElementById('loginCard').classList.remove('content-visible');
+            document.getElementById('loginCard').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'flex';
+            document.getElementById('dashboard').classList.add('content-visible', 'active');
+            loadUserData();
+        });
+
+        // 处理导航切换
+        const navItems = document.querySelectorAll('.nav-item');
+        const contentSections = document.querySelectorAll('.content-section');
+        const backgroundIndicator = document.querySelector('.nav-background-indicator');
+
+        // 初始化背景指示器位置
+        function initBackgroundIndicator() {
+            const activeItem = document.querySelector('.nav-item.active');
+            if (activeItem) {
+                const rect = activeItem.getBoundingClientRect();
+                const containerRect = activeItem.parentElement.getBoundingClientRect();
+                backgroundIndicator.style.transform = `translateY(${activeItem.offsetTop}px)`;
+            }
+        }
+
+        // 页面加载时初始化背景指示器
+        window.addEventListener('load', initBackgroundIndicator);
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const targetSectionId = item.getAttribute('data-section');
+                const targetSection = document.getElementById(targetSectionId);
+                const currentSection = document.querySelector('.content-section.active');
+                
+                if (currentSection === targetSection) return;
+
+                // 获取所有部分的索引，用于确定动画方向
+                const sections = Array.from(contentSections);
+                const currentIndex = sections.indexOf(currentSection);
+                const targetIndex = sections.indexOf(targetSection);
+                const direction = targetIndex > currentIndex ? 'next' : 'previous';
+
+                // 移除所有激活状态
+                navItems.forEach(nav => nav.classList.remove('active'));
+
+                // 移动背景指示器
+                backgroundIndicator.style.transform = `translateY(${item.offsetTop}px)`;
+
+                // 设置过渡方向类
+                requestAnimationFrame(() => {
+                    sections.forEach(section => {
+                        if (section === currentSection) {
+                            section.classList.remove('active');
+                            section.classList.add(direction === 'next' ? 'previous' : 'next');
+                        } else if (section === targetSection) {
+                            section.classList.remove('previous', 'next');
+                            // 强制重绘
+                            void section.offsetWidth;
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active', 'previous', 'next');
+                        }
+                    });
+
+                    // 激活当前导航项
+                    item.classList.add('active');
+                });
+            });
+        });
+
+        // 处理退出登录
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            // 修改退出登录时的显示状态
+            document.getElementById('dashboard').classList.remove('content-visible', 'active');
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loginCard').style.display = 'flex';
+            document.getElementById('loginCard').classList.add('content-visible');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            // 清除当前用户信息
+            localStorage.removeItem(CURRENT_USER_KEY);
+        });
+
+        // 粒子系统
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.life = 1;
+                this.decay = 0.02;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= this.decay;
+            }
+
+            draw(ctx) {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.life;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // 初始化画布
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouseX = 0;
+        let mouseY = 0;
+        let isMouseMoving = false;
+        let mouseTimer;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // 监听鼠标移动
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            isMouseMoving = true;
+            clearTimeout(mouseTimer);
+            
+            // 添加新粒子
+            for(let i = 0; i < 3; i++) {
+                particles.push(new Particle(mouseX, mouseY));
+            }
+
+            // 设置鼠标停止移动的延迟检测
+            mouseTimer = setTimeout(() => {
+                isMouseMoving = false;
+            }, 100);
+        });
+
+        // 动画循环
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 更新和绘制粒子
+            for(let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw(ctx);
+                
+                // 移除生命值耗尽的粒子
+                if(particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // 本地存储相关函数
+        const USERS_KEY = 'users';
+        const CURRENT_USER_KEY = 'currentUser';
+        
+        function getUsers() {
+            return JSON.parse(localStorage.getItem(USERS_KEY) || '{}');
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+        }
+
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem(CURRENT_USER_KEY) || 'null');
+        }
+
+        function saveCurrentUser(user) {
+            localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+        }
+
+        // 注册功能
+        document.getElementById('registerFormContent').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('两次输入的密码不一致！');
+                return;
+            }
+
+            const users = getUsers();
+            if (users[username]) {
+                alert('用户名已存在！');
+                return;
+            }
+
+            users[username] = {
+                password,
+                profile: {
+                    email: '',
+                    bio: '',
+                    avatar: '',
+                },
+                contact: {
+                    phone: '',
+                    qq: '',
+                    wechat: '',
+                },
+                articles: []
+            };
+
+            saveUsers(users);
+            alert('注册成功！');
+            hideRegisterForm();
+        });
+
+        // 登录功能
+        document.querySelector('.login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const users = getUsers();
+            const user = users[username];
+
+            if (!user || user.password !== password) {
+                alert('用户名或密码错误！');
+                return;
+            }
+
+            saveCurrentUser({ username, ...user });
+            document.getElementById('loginCard').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            loadUserData();
+        });
+
+        // 加载用户数据
+        function loadUserData() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            // 更新侧边栏用户信息
+            document.getElementById('sidebarUsername').textContent = user.username;
+            if (user.profile.avatar) {
+                document.getElementById('sidebarAvatar').src = user.profile.avatar;
+                document.getElementById('userAvatar').src = user.profile.avatar;
+            }
+
+            // 加载个人信息
+            document.getElementById('profileUsername').value = user.username;
+            document.getElementById('profileEmail').value = user.profile.email || '';
+            document.getElementById('profileBio').value = user.profile.bio || '';
+
+            // 加载联系方式
+            document.getElementById('contactPhone').value = user.contact.phone || '';
+            document.getElementById('contactQQ').value = user.contact.qq || '';
+            document.getElementById('contactWechat').value = user.contact.wechat || '';
+
+            // 加载文章
+            loadArticles();
+        }
+
+        // 保存个人信息
+        function saveProfile() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            user.profile.email = document.getElementById('profileEmail').value;
+            user.profile.bio = document.getElementById('profileBio').value;
+
+            const users = getUsers();
+            users[user.username] = user;
+            saveUsers(users);
+            saveCurrentUser(user);
+            alert('保存成功！');
+        }
+
+        // 保存联系方式
+        function saveContact() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            user.contact.phone = document.getElementById('contactPhone').value;
+            user.contact.qq = document.getElementById('contactQQ').value;
+            user.contact.wechat = document.getElementById('contactWechat').value;
+
+            const users = getUsers();
+            users[user.username] = user;
+            saveUsers(users);
+            saveCurrentUser(user);
+            alert('保存成功！');
+        }
+
+        // 头像上传
+        document.getElementById('avatarInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const user = getCurrentUser();
+                if (!user) return;
+
+                user.profile.avatar = e.target.result;
+                document.getElementById('userAvatar').src = e.target.result;
+                document.getElementById('sidebarAvatar').src = e.target.result;
+
+                const users = getUsers();
+                users[user.username] = user;
+                saveUsers(users);
+                saveCurrentUser(user);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 文章相关功能
+        let currentArticleId = null;
+
+        function showNewArticleModal() {
+            currentArticleId = null;
+            document.getElementById('articleModalTitle').textContent = '新建文章';
+            document.getElementById('articleTitle').value = '';
+            document.getElementById('articleContent').value = '';
+            document.getElementById('articleModal').classList.add('active');
+        }
+
+        function hideArticleModal() {
+            document.getElementById('articleModal').classList.remove('active');
+        }
+
+        function saveArticle() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            const title = document.getElementById('articleTitle').value;
+            const content = document.getElementById('articleContent').value;
+
+            if (!title || !content) {
+                alert('标题和内容不能为空！');
+                return;
+            }
+
+            if (currentArticleId === null) {
+                // 新建文章
+                const article = {
+                    id: Date.now(),
+                    title,
+                    content,
+                    createTime: new Date().toISOString()
+                };
+                user.articles = user.articles || [];
+                user.articles.push(article);
+            } else {
+                // 编辑文章
+                const article = user.articles.find(a => a.id === currentArticleId);
+                if (article) {
+                    article.title = title;
+                    article.content = content;
+                }
+            }
+
+            const users = getUsers();
+            users[user.username] = user;
+            saveUsers(users);
+            saveCurrentUser(user);
+            hideArticleModal();
+            loadArticles();
+        }
+
+        function loadArticles() {
+            const user = getCurrentUser();
+            if (!user || !user.articles) return;
+
+            const container = document.getElementById('articlesContainer');
+            container.innerHTML = '';
+
+            user.articles.forEach(article => {
+                const card = document.createElement('div');
+                card.className = 'article-card';
+                card.innerHTML = `
+                    <h3 class="article-title">${article.title}</h3>
+                    <p class="article-preview">${article.content}</p>
+                `;
+                card.onclick = () => editArticle(article.id);
+                container.appendChild(card);
+            });
+        }
+
+        function editArticle(id) {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            const article = user.articles.find(a => a.id === id);
+            if (!article) return;
+
+            currentArticleId = id;
+            document.getElementById('articleModalTitle').textContent = '编辑文章';
+            document.getElementById('articleTitle').value = article.title;
+            document.getElementById('articleContent').value = article.content;
+            document.getElementById('articleModal').classList.add('active');
+        }
+
+        // 处理注册和忘记密码表单显示
+        function showRegisterForm() {
+            document.getElementById('loginCard').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'flex';
+            document.getElementById('registerForm').classList.add('active');
+            const overlay = document.createElement('div');
+            overlay.className = 'auth-form-overlay active';
+            document.body.appendChild(overlay);
+            overlay.addEventListener('click', hideRegisterForm);
+        }
+
+        function hideRegisterForm() {
+            document.getElementById('registerForm').classList.remove('active');
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginCard').style.display = 'flex';
+            const overlay = document.querySelector('.auth-form-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+            // 清空表单
+            document.getElementById('regUsername').value = '';
+            document.getElementById('regPassword').value = '';
+            document.getElementById('regConfirmPassword').value = '';
+        }
+
+        function showForgotForm() {
+            document.getElementById('loginCard').style.display = 'none';
+            document.getElementById('forgotForm').style.display = 'flex';
+            document.getElementById('forgotForm').classList.add('active');
+            const overlay = document.createElement('div');
+            overlay.className = 'auth-form-overlay active';
+            document.body.appendChild(overlay);
+            overlay.addEventListener('click', hideForgotForm);
+        }
+
+        function hideForgotForm() {
+            document.getElementById('forgotForm').classList.remove('active');
+            document.getElementById('forgotForm').style.display = 'none';
+            document.getElementById('loginCard').style.display = 'flex';
+            const overlay = document.querySelector('.auth-form-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+            // 清空表单
+            document.getElementById('resetUsername').value = '';
+            document.getElementById('resetPassword').value = '';
+        }
+
+        // 处理取消按钮事件
+        document.querySelectorAll('.btn-danger').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const form = btn.closest('.auth-form');
+                if (form.id === 'registerForm') {
+                    hideRegisterForm();
+                } else if (form.id === 'forgotForm') {
+                    hideForgotForm();
+                }
+            });
+        });
+
+        // 处理 ESC 键关闭表单
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const registerForm = document.getElementById('registerForm');
+                const forgotForm = document.getElementById('forgotForm');
+                
+                if (registerForm.classList.contains('active')) {
+                    hideRegisterForm();
+                } else if (forgotForm.classList.contains('active')) {
+                    hideForgotForm();
+                }
+            }
+        });
+
+        // 修改密码功能
+        document.getElementById('forgotFormContent').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('resetUsername').value;
+            const newPassword = document.getElementById('resetPassword').value;
+
+            const users = getUsers();
+            if (!users[username]) {
+                alert('用户不存在！');
+                return;
+            }
+
+            users[username].password = newPassword;
+            saveUsers(users);
+            alert('密码重置成功！');
+            hideForgotForm();
+        });
+
+        // 更改密码功能
+        function changePassword() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+            if (currentPassword !== user.password) {
+                alert('当前密码错误！');
+                return;
+            }
+
+            if (newPassword !== confirmNewPassword) {
+                alert('两次输入的新密码不一致！');
+                return;
+            }
+
+            user.password = newPassword;
+            const users = getUsers();
+            users[user.username] = user;
+            saveUsers(users);
+            saveCurrentUser(user);
+            alert('密码修改成功！');
+
+            // 清空输入框
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmNewPassword').value = '';
+        }
+
+        // 添加时钟功能
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // 初始化时钟
+        updateClock();
+        // 每秒更新时钟
+        setInterval(updateClock, 1000);
+
+        // 在现有代码之前添加加载动画逻辑
+        const welcomeMessage = "/你发现了这里>w<！欢迎！请随意注册使用."; 
+        const welcomeText = document.getElementById('welcomeText');
+        const loadingScreen = document.getElementById('loadingScreen');
+        
+        // 禁用其他内容的显示
+        document.querySelector('.login-card').style.visibility = 'hidden';
+        document.querySelector('.clock-container').style.visibility = 'hidden';
+
+        // 打字机效果函数
+        async function typeWriter(element, text, speed = 150) {
+            element.style.opacity = '1';
+            for (let i = 0; i <= text.length; i++) {
+                element.innerHTML = text.slice(0, i);
+                await new Promise(resolve => setTimeout(resolve, speed));
+            }
+            return new Promise(resolve => setTimeout(resolve, 1000)); // 等待一秒
+        }
+
+        // 页面加载完成后开始动画
+        window.addEventListener('load', async () => {
+            // 确保背景图片已加载
+            await setRandomBackground();
+            
+            // 执行打字机动画
+            await typeWriter(welcomeText, welcomeMessage);
+            
+            // 淡出加载屏幕
+            loadingScreen.classList.add('fade-out');
+            
+            // 显示其他内容并设置初始显示状态
+            setTimeout(() => {
+                document.getElementById('dashboard').style.display = 'none';
+                document.querySelector('.login-card').style.display = 'flex';
+                document.querySelector('.login-card').classList.add('content-visible');
+                document.querySelector('.clock-container').classList.add('content-visible');
+                loadingScreen.style.display = 'none';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

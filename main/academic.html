@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学术科研 - 滁滁大学</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* 页面过渡动画 */
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s ease-in-out;
+        }
+        body.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .academic-page {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .research-section {
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .lab-card {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #003366;
+        }
+
+        .project-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .project-list li {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #003366;
+        }
+
+        .project-meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="academic-page">
+        <header class="about-header">
+            <h1>学术科研</h1>
+            <a href="../index.html" class="back-home">返回首页</a>
+        </header>
+
+        <div class="research-section">
+            <h2>重点实验室</h2>
+            <div class="research-grid">
+                <div class="lab-card">
+                    <h3>人工智能与大数据实验室</h3>
+                    <p>专注于机器学习、深度学习、自然语言处理等领域研究</p>
+                    <p>合作企业：华为、阿里巴巴</p>
+                </div>
+                <div class="lab-card">
+                    <h3>新材料工程实验室</h3>
+                    <p>研究新型复合材料、智能材料等前沿领域</p>
+                    <p>合作企业：中国科学院、东方钢铁</p>
+                </div>
+                <div class="lab-card">
+                    <h3>智能制造技术中心</h3>
+                    <p>工业自动化、机器人技术、智能控制系统研究</p>
+                    <p>合作企业：西门子、三菱电机</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="research-section">
+            <h2>科研项目</h2>
+            <ul class="project-list">
+                <li>
+                    <h3>基于深度学习的工业质量检测系统</h3>
+                    <p>运用计算机视觉和深度学习技术，实现工业产品的自动化质量检测</p>
+                    <div class="project-meta">
+                        <span>项目级别：国家级</span>
+                        <span>| 经费：500万</span>
+                        <span>| 起止时间：2024-2026</span>
+                    </div>
+                </li>
+                <li>
+                    <h3>新型环保材料在建筑领域的应用研究</h3>
+                    <p>研发环保型建筑材料，降低建筑能耗，提高建筑物使用寿命</p>
+                    <div class="project-meta">
+                        <span>项目级别：省部级</span>
+                        <span>| 经费：300万</span>
+                        <span>| 起止时间：2025-2027</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="research-section">
+            <h2>学术成果</h2>
+            <div class="achievements">
+                <h3>2024年度成果统计</h3>
+                <ul>
+                    <li>发表SCI论文：156篇</li>
+                    <li>授权发明专利：89项</li>
+                    <li>出版专著：12部</li>
+                    <li>获省部级以上科技奖励：15项</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 深色模式选择弹窗 -->
+    <div class="theme-modal" id="themeModal">
+        <h3>选择深色模式类型</h3>
+        <div class="buttons">
+            <button class="cancel-btn" id="normalDarkMode">正常深色模式</button>
+            <button class="confirm-btn" id="specialDarkMode">特殊深色模式</button>
+        </div>
+    </div>
+    <div class="spotlight-mask" id="spotlightMask"></div>
+    <div class="spotlight-center" id="spotlightCenter"></div>
+    <button class="theme-toggle" aria-label="切换深色模式">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add("visible");
+        });
+    </script>
+</body>
+</html>

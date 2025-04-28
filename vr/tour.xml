@@ -1,0 +1,1001 @@
+<krpano version="1.19" title="滁州学院" onstart="playsound(bgsnd,skin/bgm.mp3,0)" preload="true" >
+
+	<include url="skin/vtourskin.xml" />
+<include url="thumbs.xml" />
+<plugin name="soundinterface"
+        url.html5="%SWFPATH%/plugins/soundinterface.js"
+        url.flash="%SWFPATH%/plugins/soundinterface.swf"
+        preload="true"
+        rootpath=""
+        volume="0.5"
+        mute="false"
+        panningmodel="simple"
+        worldscale="1.0"
+        autopause="true"
+        autounlock="true"
+        />
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_zoombuttons="false"
+	               gyro="true"
+	               webvr="true"
+	               littleplanetintro="true"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="90" 
+	               thumbs_width.mobile="70" 
+	               thumbs_height="60" 
+	               thumbs_height.mobile="55" 
+	               thumbs_padding="7" 
+	               thumbs_padding.mobile="5" 
+	               thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="false"
+	               thumbs_dragging="false"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext=""
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-1"
+	               controlbar_height="30"
+	               controlbar_offset="0"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x634813"
+	               design_bgalpha="0.3"
+	               design_bgborder="0"
+	               design_bgroundedge="5"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="6"
+	               design_text_css="color:#FFFFFF; font-family:楷体;font-size: 12px"
+	               design_text_shadow="1"
+	               />
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+<!--旋转--> 
+<autorotate enabled="true"  
+                waittime="0.5"   
+                speed="1.0"   
+                horizon="0.0"   
+                tofov="120"   
+            /> 
+<events onmousedown="set(bt,0);" />  
+<events onnewpano="delayedcall(autoscene,50,nextscene);" onremovepano="stopdelayedcall(autoscene);"/>
+ <!--下面是他的属性--> 
+<action name="bombtimer">  
+set(autorotate.enabled,true);  
+set(bt,%1);  
+add(bt,1);  
+delayedcall(1, bombtimer(get(bt)));   
+copy(bt_1,autorotate.speed);  
+div(bt_2,360,bt_1);  
+add(bt_2,autorotate.waittime);  
+if(bt GE bt_2, set(bt,0); nextscene(););  
+</action>  
+<action name="nextscene">  
+set(ns, get(scene[get(xml.scene)].index));  
+set(maxs, get(scene.count));  
+add(ns,1);  
+if(ns == maxs, set(ns,0));  
+loadscene(get(scene[get(ns)].name), null, MERGE, BLEND(1.5));  
+</action> 
+
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+	</action>
+
+<plugin name="indexlogo" onclick="openurl('http://www.chzu.edu.cn',_blank);" url="skin/logo.png"  keep="true" align="lefttop" x="5" y="5"  zorder="150"/>
+
+
+
+
+<include url="thumbs.xml" />
+ <config>
+	<thumbs  title="场景选择" show_thumbs="true">
+
+
+<category name="category_00"  title="会峰校区">
+
+        <pano name="scene_hp01" />
+     
+
+        <pano name="scene_hp02" />
+
+             <pano name="scene_xy08" />
+        <pano name="scene_2501" />
+
+        <pano name="scene_2504" />
+        <pano name="scene_2505" />
+
+        <pano name="scene_2511" />
+      <pano name="scene_2511-1" />
+
+        <pano name="scene_2512" />
+ 
+
+        <pano name="scene_2508" />
+        <pano name="scene_2502" />
+
+        <pano name="scene_2503" />
+        <pano name="scene_2509" />
+
+        <pano name="scene_2510" />
+           <pano name="scene_2515" />
+        <pano name="scene_hp03" />
+  
+
+
+        <pano name="scene_hp05-1" />
+           <pano name="scene_xy11" />
+        <pano name="scene_2513" />
+        <pano name="scene_xy13" />
+        <pano name="scene_2516" />
+
+        <pano name="scene_hp05" />
+
+
+   
+        <pano name="scene_2514" />
+       
+     
+        <pano name="scene_pb06" />
+
+        <pano name="scene_pb07" />
+   
+
+
+		</category>
+
+<category name="category_02"  title="琅琊校区">
+
+    	<pano name="scene_hp06" />
+     	<pano name="scene_hp07" />
+      	<pano name="scene_xy18" />
+	    <pano name="scene_xy20" />
+	    <pano name="scene_2506" />
+	    <pano name="scene_2507" />
+	    <pano name="scene_pb05" />
+
+</category>
+
+
+</thumbs>
+		</config>
+
+
+<plugin name="indexlogo"  url="skin/logo.png"   keep="true" scale="0.5" align="lefttop" x="15" y="15"  zorder="150"/>
+
+
+<scene name="scene_hp01" title="西区航拍" onstart="" thumburl="panos/hp01.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="80.561" vlookat="17.565" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/hp01.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/hp01.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/hp01.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/hp01.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/hp01.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-1.115" atv="14.975" distorted="false" zoom="false" linkedscene="scene_hp02" />
+		<hotspot name="spot2" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="149.137" atv="-1.940" distorted="false" zoom="false" linkedscene="scene_2515" />
+		<hotspot name="spot3" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-96.612" atv="48.663" distorted="false" zoom="false" linkedscene="scene_2502" />
+		<hotspot name="spot4" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-55.444" atv="37.194" distorted="false" zoom="false" linkedscene="scene_2503" />
+		<hotspot name="spot5" style="skin_hotspotstyle6" text="经济与管理学院" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="111.482" atv="17.680" distorted="false" zoom="false" linkedscene="scene_2501" />
+		<hotspot name="spot6" style="skin_hotspotstyle6" text="生物与食品工程学院" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-88.340" atv="10.117" distorted="false" zoom="false" linkedscene="scene_2504" />
+		<hotspot name="spot7" style="skin_hotspotstyle6" text="地理信息与旅游学院" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-91.223" atv="19.599" distorted="false" zoom="false" linkedscene="scene_2505" />
+		<hotspot name="spot8" style="skin_hotspotstyle6" text="数学与金融学院" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-58.543" atv="15.690" distorted="false" zoom="false" linkedscene="scene_2511" />
+		<hotspot name="spot9" style="skin_hotspotstyle6" text="计算机与信息工程学院" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-69.774" atv="10.554" distorted="false" zoom="false" linkedscene="scene_2511-1" />
+		<hotspot name="spot10" style="skin_hotspotstyle6" text="材料与化学工程学院" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-76.560" atv="5.480" distorted="false" zoom="false" linkedscene="scene_2512" />
+		<hotspot name="spot11" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="106.419" atv="10.270" distorted="false" zoom="false" linkedscene="scene_2508" />
+		<hotspot name="spot12" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="124.912" atv="7.727" distorted="false" zoom="false" linkedscene="scene_2509" />
+		<hotspot name="spot13" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="74.977" atv="10.710" distorted="false" zoom="false" linkedscene="scene_2510" />
+		<hotspot name="spot14" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="131.523" atv="18.002" distorted="false" zoom="false" linkedscene="scene_xy08" />
+		<hotspot name="spot15"  style="skin_hotspotstyle6" text="学生宿舍" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();" ath="91.617" atv="5.958" />
+		<hotspot name="spot16" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();" text="行政楼" ath="-109.985" atv="28.241"  />
+		<hotspot name="spot17" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();" text="会峰西路大门" ath="168.996" atv="27.634" />
+
+	</scene>
+
+
+		<scene name="scene_2515" title="东区航拍" onstart="" thumburl="panos/2515.tiles/thumb.jpg" lat="32.27856486" lng="118.31031800" heading="0.0">
+
+		<view hlookat="-5.663" vlookat="24.578" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2515.tiles/preview.jpg" />
+
+		<image type="CUBE" prealign="0|0.0|0" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2515.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2515.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2515.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle6" text="丰乐大道大门" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-176.550" atv="43.356" distorted="false" zoom="false" linkedscene="scene_2516" />
+		<hotspot name="spot2" style="skin_hotspotstyle6" text="土木与建筑工程学院" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="118.617" atv="41.288" distorted="false" zoom="false" linkedscene="scene_xy13" />
+		<hotspot name="spot3" style="skin_hotspotstyle6" text="文学与传媒学院" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="52.407" atv="27.518" distorted="false" zoom="false" linkedscene="scene_xy11" />
+		<hotspot name="spot5" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-3.564" atv="29.492" distorted="false" zoom="false" linkedscene="scene_hp05" />
+		<hotspot name="spot6" style="skin_hotspotstyle6"  text="机械与电气工程学院"  onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-56.125" atv="26.577" distorted="false" zoom="false" linkedscene="scene_hp05-1" />
+		<hotspot name="spot7" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="21.544" atv="18.154" distorted="false" zoom="false" linkedscene="scene_2513" />
+		<hotspot name="spot8" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="5.888" atv="11.925" distorted="false" zoom="false" linkedscene="scene_2514" />
+		<hotspot name="spot9" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-42.149" atv="12.472" distorted="false" zoom="false" linkedscene="scene_pb07" />
+		<hotspot name="spot10" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-3.548" atv="19.330" distorted="false" zoom="false" linkedscene="scene_pb06" />
+		<hotspot name="spot4" style="skin_hotspotstyle6" text="人工智能学院" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"   ath="95.992" atv="28.383" />
+
+	</scene>
+
+
+	<scene name="scene_2501" title="经管学院" onstart="" thumburl="panos/2501.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2501.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2501.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2501.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2501.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2502" title="校史馆" onstart="" thumburl="panos/2502.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-2.978" vlookat="-10.200" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2502.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2502.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2502.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2502.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2503" title="会议中心" onstart="" thumburl="panos/2503.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="2.391" vlookat="-18.887" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2503.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2503.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2503.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2503.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2504" title="食品学院" onstart="" thumburl="panos/2504.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2504.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2504.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2504.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2504.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2505" title="地信学院" onstart="" thumburl="panos/2505.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2505.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2505.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2505.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2505.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+
+
+	<scene name="scene_2508" title="产教融合中心" onstart="" thumburl="panos/2508.tiles/thumb.jpg" lat="32.27485439" lng="118.30301297" heading="0.0">
+
+		<view hlookat="-6.043" vlookat="27.632" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2508.tiles/preview.jpg" />
+
+		<image type="CUBE" prealign="0|0.0|0" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2508.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2508.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2508.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2509" title="知行桥" onstart="" thumburl="panos/2509.tiles/thumb.jpg" lat="32.27538169" lng="118.30372894" heading="0.0">
+
+		<view hlookat="-62.806" vlookat="64.505" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2509.tiles/preview.jpg" />
+
+		<image type="CUBE" prealign="0|0.0|0" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2509.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2509.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2509.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2510" title="体育场" onstart="" thumburl="panos/2510.tiles/thumb.jpg" lat="32.27652994" lng="118.30046986" heading="0.0">
+
+		<view hlookat="92.995" vlookat="72.647" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2510.tiles/preview.jpg" />
+
+		<image type="CUBE" prealign="0|0.0|0" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2510.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2510.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2510.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2511" title="金融学院" onstart="" thumburl="panos/2511.tiles/thumb.jpg" lat="32.27133928" lng="118.30093986" heading="0.0">
+
+		<view hlookat="81.655" vlookat="2.931" fovtype="MFOV" fov="100.844" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2511.tiles/preview.jpg" />
+
+		<image type="CUBE" prealign="0|0.0|0" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2511.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2511.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2511.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+
+		<scene name="scene_2511-1" title="信息学院" onstart="" thumburl="panos/2511-1.tiles/thumb.jpg" lat="32.27133928" lng="118.30093986" heading="0.0">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2511-1.tiles/preview.jpg" />
+
+		<image type="CUBE" prealign="0|0.0|0" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2511-1.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2511-1.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2511-1.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2512" title="化工学院" onstart="" thumburl="panos/2512.tiles/thumb.jpg" lat="32.27072592" lng="118.30096228" heading="0.0">
+
+		<view hlookat="15.760" vlookat="22.368" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2512.tiles/preview.jpg" />
+
+		<image type="CUBE" prealign="0|0.0|0" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2512.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2512.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2512.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2513" title="体育学院" onstart="" thumburl="panos/2513.tiles/thumb.jpg" lat="32.27849972" lng="118.30798900" heading="0.0">
+
+		<view hlookat="1.737" vlookat="14.932" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2513.tiles/preview.jpg" />
+
+		<image type="CUBE" prealign="0|0.0|0" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2513.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2513.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2513.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2514" title="风雨操场" onstart="" thumburl="panos/2514.tiles/thumb.jpg" lat="32.27866067" lng="118.30649058" heading="0.0">
+
+		<view hlookat="-20.621" vlookat="34.647" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2514.tiles/preview.jpg" />
+
+		<image type="CUBE" prealign="0|0.0|0" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2514.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2514.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2514.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+
+
+	<scene name="scene_2516" title="东区大门" onstart="" thumburl="panos/2516.tiles/thumb.jpg" lat="32.27865350" lng="118.31138508" heading="0.0">
+
+		<view hlookat="155.459" vlookat="38.595" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2516.tiles/preview.jpg" />
+
+		<image type="CUBE" prealign="0|0.0|0" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2516.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2516.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2516.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+
+
+	<scene name="scene_hp02" title="会峰湖" onstart="" thumburl="panos/hp02.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/hp02.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/hp02.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/hp02.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/hp02.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/hp02.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_hp03" title="东区鸟瞰" onstart="" thumburl="panos/hp03.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-34.644" vlookat="32.803" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/hp03.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/hp03.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/hp03.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/hp03.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/hp03.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_hp05" title="图书馆" onstart="" thumburl="panos/hp05.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-3.669" vlookat="0.665" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/hp05.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/hp05.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/hp05.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/hp05.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/hp05.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+
+
+	<scene name="scene_hp05-1" title="机电学院" onstart="" thumburl="panos/hp05-1.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-92.860" vlookat="2.534" fovtype="MFOV" fov="78.211" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/hp05-1.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/hp05-1.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/hp05-1.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/hp05-1.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/hp05-1.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+
+
+
+	<scene name="scene_pb06" title="水上报告厅" onstart="" thumburl="panos/pb06.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/pb06.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/pb06.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/pb06.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/pb06.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/pb06.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_pb07" title="学生宿舍" onstart="" thumburl="panos/pb07.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="2.634" vlookat="-9.067" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/pb07.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/pb07.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/pb07.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/pb07.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/pb07.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+
+	<scene name="scene_xy08" title="外国语学院" onstart="" thumburl="panos/xy08.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-38.234" vlookat="-0.982" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/xy08.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/xy08.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/xy08.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/xy08.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/xy08.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_xy11" title="文学院" onstart="" thumburl="panos/xy11.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-4.080" vlookat="-12.143" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/xy11.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/xy11.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/xy11.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/xy11.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/xy11.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_xy13" title="土木学院" onstart="" thumburl="panos/xy13.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-12.916" vlookat="-18.232" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/xy13.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/xy13.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/xy13.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/xy13.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/xy13.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+
+
+		<scene name="scene_hp06" title="琅琊校区" onstart="" thumburl="panos/hp06.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="11.138" vlookat="25.324" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/hp06.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/hp06.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/hp06.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/hp06.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/hp06.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle6"  text="美术与设计学院" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="8.451" atv="1.997" distorted="false" zoom="false" linkedscene="scene_xy20" />
+		<hotspot name="spot2" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="-29.077" atv="11.955" distorted="false" zoom="false" linkedscene="scene_2506" />
+		<hotspot name="spot3" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="43.126" atv="7.679" distorted="false" zoom="false" linkedscene="scene_2507" />
+		<hotspot name="spot4" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="72.185" atv="4.748" distorted="false" zoom="false" linkedscene="scene_pb05" />
+		<hotspot name="spot5" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();"  ath="61.773" atv="2.907" distorted="false" zoom="false" linkedscene="scene_xy18" />
+		<hotspot name="spot6" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();" text="图书馆" ath="13.558" atv="23.520" distorted="false" zoom="false" />
+		<hotspot name="spot7" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();" text="艺术馆" ath="43.265" atv="28.298"  />
+		<hotspot name="spot8" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();" text="音乐厅" ath="17.773" atv="7.298"/>
+		<hotspot name="spot9" style="skin_hotspotstyle6" onloaded="hotspot_animate();add_all_the_time_tooltip_for_VR1();" text="综合楼" ath="-78.986" atv="20.333" />
+
+	</scene>
+
+	<scene name="scene_hp07" title="琅琊校区" onstart="" thumburl="panos/hp07.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.819" vlookat="29.260" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/hp07.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/hp07.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/hp07.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/hp07.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/hp07.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+		
+	</scene>
+
+	<scene name="scene_xy18" title="音乐楼" onstart="" thumburl="panos/xy18.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="4.420" vlookat="-15.480" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/xy18.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/xy18.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/xy18.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/xy18.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/xy18.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_xy20" title="美术学院" onstart="" thumburl="panos/xy20.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="14.954" vlookat="-18.710" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/xy20.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/xy20.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/xy20.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/xy20.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/xy20.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+
+		<scene name="scene_2506" title="音乐与教育学院" onstart="" thumburl="panos/2506.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-13.518" vlookat="-34.780" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2506.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2506.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2506.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2506.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+	</scene>
+
+	<scene name="scene_2507" title="水杉大道" onstart="" thumburl="panos/2507.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-105.946" vlookat="-8.731" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/2507.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="3840" tiledimageheight="3840">
+				<cube url="panos/2507.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/2507.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/2507.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle6" ath="-22.007" atv="1.458"  text="校医院"  onloaded="add_all_the_time_tooltip_for_VR1();" />
+
+	</scene>
+
+	<scene name="scene_pb05" title="足球场" onstart="" thumburl="panos/pb05.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/pb05.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512">
+			<level tiledimagewidth="6400" tiledimageheight="6400">
+				<cube url="panos/pb05.tiles/%s/l4/%0v/l4_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="3200" tiledimageheight="3200">
+				<cube url="panos/pb05.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="1536" tiledimageheight="1536">
+				<cube url="panos/pb05.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
+			</level>
+			<level tiledimagewidth="768" tiledimageheight="768">
+				<cube url="panos/pb05.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
+			</level>
+		</image>
+
+
+	</scene>
+
+
+
+
+	<action name="add_all_the_time_tooltip_for_VR1">
+	
+	 txtadd(tooltipname, 'vrtooltip_', get(name));
+	 addhotspot(get(tooltipname)); 
+	 set(hotspot[get(tooltipname)],
+		type=text,
+		edge=get(hotspot[get(name)].edge),
+		distorted=get(hotspot[get(name)].distorted),
+		ath=get(hotspot[get(name)].ath),
+		atv=get(hotspot[get(name)].atv),
+		oy=-40,
+		ox=0,
+		vcenter=true,
+		padding=6,
+		mipmapping=true,
+		oversampling=2,
+		bg=true,
+		bgcolor=0x108a6d,
+		bgroundedge=5,
+		bgalpha=0.65,
+		bgborder=0,
+		bgshadow='0 0 0 0x000000 0',
+		css=calc(device.mobile ? 'text-align:center; color:#FFFFFF; font-family:黑体; font-weight:bolder; font-size:16px;':'text-align:left; color:#FFFFFF; font-family:黑体; font-size:16px;font-weight:bolder;'),
+		txtshadow='0 0 0 0x000000 0';
+		enabled=true,
+        );
+         txtadd(hotspot[get(tooltipname)].onclick,'callwith(hotspot[',get(name),'],onclick)');  
+	 if(text == '' OR text === null,
+ 
+		 copy(hotspot[get(tooltipname)].html,scene[get(linkedscene)].title),
+		 copy(hotspot[get(tooltipname)].html,text);
+ 
+	 ); 
+	 if(lp_running == false,
+	 	set(hotspot[get(tooltipname)].visible,true); 
+	 	, 	
+	 	if(!webvr.isenabled,
+	 	  if(lp_running == true,
+		 	set(hotspot[get(tooltipname)].visible,false); 
+		 	set(hotspot[get(tooltipname)].mark2,true);
+	 	   );
+	 	  );
+	 	);
+	 if(hotspot[get(name)].normal == false, 
+ 
+		set(hotspot[get(tooltipname)].normal,false);
+		set(hotspot[get(tooltipname)].onloaded,
+			if(webvr.isenabled,
+				set(visible,false);
+				,	
+				if(lp_running == false OR lp_running == null OR lp_running === null,  
+					set(visible,true);
+					);
+				);
+	       );
+ 
+	 	);
+</action>
+</krpano>

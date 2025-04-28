@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - 滁滁大学</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* 页面过渡动画 */
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s ease-in-out;
+        }
+        body.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .contact-page {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-section {
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15),
+                        0 0 20px rgba(0, 51, 102, 0.3);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--text-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+            outline: none;
+        }
+
+        .submit-btn {
+            background: var(--btn-bg);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .submit-btn:hover {
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-container {
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .vr-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--btn-bg);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .vr-btn:hover {
+            background: var(--btn-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 深色模式适配 */
+        [data-theme="dark"] .contact-section {
+            background: rgba(30, 30, 30, 0.7);
+            border: 1px solid rgba(51, 153, 255, 0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3),
+                        inset 0 0 30px var(--card-glow);
+        }
+
+        [data-theme="dark"] .contact-card {
+            background: rgba(30, 30, 30, 0.6);
+            border: 1px solid rgba(51, 153, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+                        inset 0 0 20px var(--card-glow);
+        }
+
+        [data-theme="dark"] .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--card-border-glow);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3),
+                        0 0 30px var(--card-glow-hover),
+                        inset 0 0 20px var(--card-glow-hover);
+            background: rgba(30, 30, 30, 0.8);
+        }
+
+        [data-theme="dark"] .form-group input,
+        [data-theme="dark"] .form-group textarea {
+            background: rgba(30, 30, 30, 0.6);
+            border: 1px solid rgba(51, 153, 255, 0.1);
+            color: var(--form-text);
+        }
+
+        [data-theme="dark"] .form-group input:focus,
+        [data-theme="dark"] .form-group textarea:focus {
+            border-color: var(--card-border-glow);
+            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.2);
+        }
+
+        [data-theme="dark"] .map-container {
+            border-color: rgba(51, 153, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3),
+                        inset 0 0 20px var(--card-glow);
+            filter: brightness(0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-page">
+        <header class="about-header">
+            <h1>联系我们</h1>
+            <a href="../index.html" class="back-home">返回首页</a>
+        </header>
+
+        <div class="contact-section">
+            <h2>联系方式</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>校园地址</h3>
+                    <p>安徽省滁州市XX区XX路XX号</p>
+                    <p>邮编：239000</p>
+                </div>
+                <div class="contact-card">
+                    <h3>联系电话</h3>
+                    <p>总机：0550-12345678</p>
+                    <p>招生办：0550-12345679</p>
+                    <p>校长办：0550-12345670</p>
+                </div>
+                <div class="contact-card">
+                    <h3>电子邮箱</h3>
+                    <p>综合邮箱：info@chuchu.edu.cn</p>
+                    <p>招生咨询：zs@chuchu.edu.cn</p>
+                    <p>就业指导：job@chuchu.edu.cn</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2>在线留言</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">姓名：</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">邮箱：</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">电话：</label>
+                    <input type="tel" id="phone">
+                </div>
+                <div class="form-group">
+                    <label for="subject">主题：</label>
+                    <input type="text" id="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">留言内容：</label>
+                    <textarea id="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">提交留言</button>
+            </form>
+        </div>
+
+        <div class="contact-section">
+            <h2>交通指南</h2>
+            <div class="transport-info">
+                <h3>校园交通</h3>
+                <p>1. 公交路线：</p>
+                <ul>
+                    <li>1路公交车：火车站 - 滁滁大学（约30分钟）</li>
+                    <li>2路公交车：汽车站 - 滁滁大学（约20分钟）</li>
+                </ul>
+                <p>2. 自驾路线：</p>
+                <ul>
+                    <li>从滁州火车站：沿XX路向东，右转XX大道，直行3公里即到</li>
+                    <li>从滁州汽车站：沿XX路向北，左转XX路，直行2公里即到</li>
+                </ul>
+            </div>
+            <div class="map-container">
+                <div id="container" style="width: 100%; height: 100%;"></div>
+                <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=64eb0d48f30650b9beef88433a1fff40"></script>
+                <script>
+                    var map = new AMap.Map('container', {
+                        zoom: 15,  //设置地图显示的缩放级别
+                        center: [118.327271, 32.323457],  //设置地图中心点坐标
+                        viewMode: '3D'  //使用3D视图
+                    });
+                    
+                    // 创建点标记
+                    var marker = new AMap.Marker({
+                        position: [118.327271, 32.323457],
+                        title: '滁滁大学'
+                    });
+                    
+                    // 创建信息窗体
+                    var infoWindow = new AMap.InfoWindow({
+                        content: '<div style="padding:15px;">滁滁大学<br>地址：安徽省滁州市会峰西路1号</div>',
+                        offset: new AMap.Pixel(0, -30),
+                        closeWhenClickMap: true
+                    });
+
+                    // 将点标记添加到地图
+                    marker.setMap(map);
+                    
+                    // 点击标记时打开信息窗体
+                    marker.on('click', function() {
+                        infoWindow.open(map, marker.getPosition());
+                    });
+
+                    // 添加控件
+                    map.addControl(new AMap.Scale());  // 比例尺
+                    map.addControl(new AMap.ToolBar());  // 工具条
+                    map.addControl(new AMap.ControlBar({  // 3D控制条
+                        position: {right: '10px', top: '10px'}
+                    }));
+                </script>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="https://www.chzu.edu.cn/vr/index.html" class="vr-btn" target="_blank">校园VR导览</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 深色模式选择弹窗 -->
+    <div class="theme-modal" id="themeModal">
+        <h3>选择深色模式类型</h3>
+        <div class="buttons">
+            <button class="cancel-btn" id="normalDarkMode">正常深色模式</button>
+            <button class="confirm-btn" id="specialDarkMode">特殊深色模式</button>
+        </div>
+    </div>
+    <div class="spotlight-mask" id="spotlightMask"></div>
+    <div class="spotlight-center" id="spotlightCenter"></div>
+    <button class="theme-toggle" aria-label="切换深色模式">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add("visible");
+        });
+    </script>
+</body>
+</html>

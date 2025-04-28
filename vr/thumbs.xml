@@ -1,0 +1,527 @@
+<krpano debugmode="true"   logkey="true"  >
+
+	<settings 
+
+			hama_thumbs_show = "true"
+			keep="true"
+			hama_thumbs_container_width    = "100%"
+			hama_thumbs_container_height   = "160"
+			hama_thumbs_container_bgcolor  = "0xc61b1a"
+			hama_thumbs_container_bgalpha  = "0"
+			hama_thumbs_container_align    = "bottom"
+			hama_thumbs_container_x        = "0"
+			hama_thumbs_container_y        = "-40"
+
+			hama_thumbs_level_one_width    = "calc:settings.hama_thumbs_container_width"
+			hama_thumbs_level_one_height   = "121"
+			hama_thumbs_level_one_bgcolor  = "0x000000"
+			hama_thumbs_level_one_bgalpha  = "0.1"
+			hama_thumbs_level_one_align    = "bottom"
+			hama_thumbs_level_one_y        = "155"
+
+			hama_thumbs_level_one_item_width  = "88"
+			hama_thumbs_level_one_item_height = "88"
+			hama_thumbs_level_one_item_offset = "15"
+			hama_thumbs_level_one_item_color  = "0xffffff"
+		    hama_thumbs_level_one_item_alpha  = "0.5"
+		    hama_thumbs_level_one_item_css    = "color:#000000; font-family:Arial; text-align:center; font-size:12px;"
+		    hama_thumbs_level_one_roundedge   = "18"
+		    hama_thumbs_level_one_item_border = "2 0xffffff 1"
+		    hama_thumbs_level_one_item_active_border = "3 0xc61b1a 1"
+		    hama_thumbs_level_one_item_bgcolor = "0xffffff"
+		    hama_thumbs_level_one_item_bgalpha = "0.2"
+		    hama_thumbs_level_one_item_title_css    = "color:#ffffff; font-family:Arial; text-align:center; font-size:12px;"
+		    hama_thumbs_level_one_item_title_height = "20"
+		    hama_thumbs_level_one_item_title_bgalpha = "0.5"
+		    hama_thumbs_level_one_item_title_y       = "3"
+		    hama_thumbs_level_one_border_padding     = "20"
+
+			hama_thumbs_level_two_width    = "calc:settings.hama_thumbs_container_width"
+			hama_thumbs_level_two_height   = "39"
+			hama_thumbs_level_two_bgcolor  = "0x000000"
+			hama_thumbs_level_two_container_bgalpha ="0"
+			hama_thumbs_level_two_bgalpha  = "0.4"
+			hama_thumbs_level_two_align    = "top"
+			hama_thumbs_level_two_border   = "0,0,0,0 0xffffff 0.5"
+
+			hama_thumbs_level_two_item_width  = "100"
+			hama_thumbs_level_two_item_height = "25"
+			hama_thumbs_level_two_item_offset = "10"
+			hama_thumbs_level_two_item_color  = "0xc61b1a"
+			hama_thumbs_level_two_item_active_color  = "0xffffff"
+
+		    hama_thumbs_level_two_item_alpha  = "0.5"
+		    hama_thumbs_level_two_item_css    = "color:#000000; font-family:Arial; text-align:center; font-size:14px;"
+		    hama_thumbs_level_two_item_css_active    = "color:#ffffff; font-family:Arial; text-align:center; font-size:14px;"
+		    hama_thumbs_level_two_item_roundedge   = "5"
+
+			hama_thumbs_btn_width          = "100"
+			hama_thumbs_btn_height         = "50"
+			hama_thumbs_btn_bgcolor        = "0x000000"
+
+			hama_thumbs_btn_bgalpha        = "0.7"
+			hama_thumbs_btn_align          = "centerbottom"
+			hama_thumbs_btn_x              = "0"
+			hama_thumbs_btn_y              = "35"
+			hama_thmubs_btn_css			   = "skin_base|skin_glow"
+			hama_thmubs_btn_roundedge      = "30"
+			plugin_url = "plugins/"
+	        loadscene_flags="MERGE"
+		    loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+		    load_index = "-1"
+	/>
+	<plugin_url
+		    TEXT_SWF   = "calc:settings.plugin_url + 'textfield.swf'"   
+		    SCROLL_SWF = "calc:settings.plugin_url + 'scrollarea.swf'"
+		    SCROLL_JS  = "calc:settings.plugin_url + 'scrollarea.js'"		     
+    />
+
+	<textstyle name     = "STYLE2"
+			   font             = "Arial"
+			   fontsize         = "12"
+			   bold             = "false"
+			   background       = "true"
+			   backgroundcolor  = "0x000000"
+			   backgroundalpha  = "0.5"
+			   border           = "false"
+			   textcolor        = "0xFFFFFF"
+			   textalign        = "center"
+			   width            = "auto"
+			   height           = "auto"
+			   vcenter          = "true"
+			   roundedge        = "5"
+			   padding          = "5 15 5 15"
+			   />
+	<events name="thumbs_event" keep="true"
+			onclick="thumbs_state();"
+			onnewpano="activet_thumbs();ChangeTwoBgalpha();map_menu_config();changetwomap();"
+	/>
+	<action name="thumbs_start" autorun="onstart">
+		if(settings.hama_thumbs_show,
+			thubms_config();
+			hama_thumbs_level_one_config(-1);
+			activet_thumbs();
+
+		
+		);
+	</action>
+	
+	<action name="thubms_config"   keep="true">
+	
+		<!-- 配置缩略图选项按钮 -->
+
+		addlayer(hama_thumbs_btn);
+		          set( layer[hama_thumbs_btn].type,         text);
+		          set( layer[hama_thumbs_btn].keep,         true);
+
+
+
+
+
+		       <!--   set( layer[hama_thumbs_btn].vcenter,      true);   -->
+
+
+		          set( layer[hama_thumbs_btn].zorder,          '2');
+		          set( layer[hama_thumbs_btn].url,          'skin/caidan.png');
+		          set( layer[hama_thumbs_btn].visible,      get(config.thumbs.show_thumbs));
+		          copy(layer[hama_thumbs_btn].align,        settings.hama_thumbs_btn_align);
+		          copy(layer[hama_thumbs_btn].x,            settings.hama_thumbs_btn_x);
+		          copy(layer[hama_thumbs_btn].y,            settings.hama_thumbs_btn_y);
+		          set(layer[hama_thumbs_btn].scale,         0.8);
+
+
+
+ 				  set( layer[hama_thumbs_btn].html,         get(config.thumbs.title)); 
+
+		          copy(layer[hama_thumbs_btn].css,          settings.hama_thmubs_btn_css); 
+		        <!--    copy(layer[hama_thumbs_btn].bgalpha,      settings.hama_thumbs_btn_bgalpha);
+		          copy(layer[hama_thumbs_btn].bgcolor,      settings.hama_thumbs_btn_bgcolor);
+		          copy(layer[hama_thumbs_btn].color,        settings.hama_thmubs_btn_color);
+		        
+		          copy(layer[hama_thumbs_btn].width,        settings.hama_thumbs_btn_width);
+		          copy(layer[hama_thumbs_btn].height,       settings.hama_thumbs_btn_height);
+		       
+		          set( layer[hama_thumbs_btn].html,         get(config.thumbs.title)); 
+		          copy(layer[hama_thumbs_btn].css,          settings.hama_thmubs_btn_css); 
+		          copy(layer[hama_thumbs_btn].roundedge,    settings.hama_thmubs_btn_roundedge); -->
+		          set( layer[hama_thumbs_btn].onclick,      'thumbs_show();');
+
+
+		<!-- 缩略图主体 -->
+		if(config.thumbs.category.count GT 1,
+	 	  set(two_title,true);
+	 	  ,
+	 	  set(two_title,false);
+	 	 
+	 	  copy(settings.hama_thumbs_container_height,settings.hama_thumbs_level_one_item_height);
+	   );
+		addlayer(hama_thumbs_container);
+
+			          set( layer[hama_thmubs_btn_css].type,       settings.hama_thmubs_btn_css);
+		          set( layer[hama_thumbs_container].type,         container);
+		          set( layer[hama_thumbs_container].keep,         true);
+		          copy(layer[hama_thumbs_container].visible,      settings.hama_thumbs_show);
+		          copy(layer[hama_thumbs_container].bgalpha,      settings.hama_thumbs_container_bgalpha);
+		          copy(layer[hama_thumbs_container].bgcolor,      settings.hama_thumbs_container_bgcolor);
+		          copy(layer[hama_thumbs_container].align,        settings.hama_thumbs_container_align);
+		          copy(layer[hama_thumbs_container].width,        settings.hama_thumbs_container_width);
+		          copy(layer[hama_thumbs_container].height,       settings.hama_thumbs_container_height);
+		          copy(layer[hama_thumbs_container].x,            settings.hama_thumbs_container_x);
+		          copy(layer[hama_thumbs_container].y,            settings.hama_thumbs_container_y);
+		          set(layer[hama_thumbs_container].state,         'open');
+		<!-- 一级缩略图主体 -->
+
+		addlayer(hama_thumbs_level_one);
+		          set( layer[hama_thumbs_level_one].type,         container);
+		          set( layer[hama_thumbs_level_one].keep,         true);
+		          set( layer[hama_thumbs_level_one].parent,       hama_thumbs_container);
+		          copy(layer[hama_thumbs_level_one].bgalpha,      settings.hama_thumbs_level_one_bgalpha);
+		          copy(layer[hama_thumbs_level_one].bgcolor,      settings.hama_thumbs_level_one_bgcolor);
+		          copy(layer[hama_thumbs_level_one].align,        settings.hama_thumbs_level_one_align);
+		          copy(layer[hama_thumbs_level_one].width,        settings.hama_thumbs_level_one_width);
+		          copy(layer[hama_thumbs_level_one].height,       settings.hama_thumbs_level_one_height);
+		          copy(layer[hama_thumbs_level_one].y,            settings.hama_thumbs_level_one_y);
+
+
+		<!-- 二级缩略图标题主体 -->
+
+		addlayer(hama_thumbs_level_two);
+		          set( layer[hama_thumbs_level_two].type,         container);
+		          set( layer[hama_thumbs_level_two].keep,         true);
+		          copy( layer[hama_thumbs_level_two].visible,     get(two_title));
+		          set( layer[hama_thumbs_level_two].parent,       hama_thumbs_container);
+		          copy(layer[hama_thumbs_level_two].bgalpha,      settings.hama_thumbs_level_two_container_bgalpha);
+		          copy(layer[hama_thumbs_level_two].bgcolor,      settings.hama_thumbs_level_two_bgcolor);
+		          copy(layer[hama_thumbs_level_two].align,        settings.hama_thumbs_level_two_align);
+		          copy(layer[hama_thumbs_level_two].width,        settings.hama_thumbs_level_two_width);
+		          copy(layer[hama_thumbs_level_two].height,       settings.hama_thumbs_level_two_height);
+		          copy(layer[hama_thumbs_level_two].bgborder,     settings.hama_thumbs_level_two_border);
+
+		<!-- 二级缩略图滚动层 -->
+
+		addlayer(hama_thumbs_level_two_scroll);
+		          set( layer[hama_thumbs_level_two_scroll].type,          container);
+		          set( layer[hama_thumbs_level_two_scroll].keep,          true);
+		          set( layer[hama_thumbs_level_two_scroll].parent,        hama_thumbs_level_two);
+		          if(device.flash,
+			set(layer[hama_thumbs_level_two_scroll].url,get(plugin_url.SCROLL_SWF));
+			,
+			set(layer[hama_thumbs_level_two_scroll].url,get(plugin_url.SCROLL_JS));
+		);
+
+		          copy(layer[hama_thumbs_level_two_scroll].height,        settings.hama_thumbs_level_two_height);
+		          set( layer[hama_thumbs_level_two_scroll].align,         center);
+		          set( layer[hama_thumbs_level_two_scroll].onloaded,      setcenter(0,0););
+		          set( layer[hama_thumbs_level_two_scroll].direction,     h);
+
+		hama_thumbs_level_two_config();
+	</action>
+
+	<action name="hama_thumbs_level_two_config">
+
+	    copy(itemoffset,settings.hama_thumbs_level_two_item_offset);
+        add( newoffset,itemoffset,settings.hama_thumbs_level_two_item_width);
+		copy(thumbs_cate_num,config.thumbs.category.count);
+
+		for(set(i,0),i LT thumbs_cate_num,inc(i),
+			txtadd(item_name,'hama_humbs_level_two_item_',get(i));
+			mul(new_offset,newoffset,i);
+			addlayer(get(item_name));
+          set( layer[get(item_name)].type,       container);
+          set( layer[get(item_name)].keep,       true);
+          set( layer[get(item_name)].parent,     hama_thumbs_level_two_scroll);
+          set( layer[get(item_name)].html,       get(config.thumbs.category[get(i)].title));
+          copy(layer[get(item_name)].x,          new_offset);
+          copy(layer[get(item_name)].url,        plugin_url.TEXT_SWF); 
+          copy(layer[get(item_name)].bgalpha,    settings.hama_thumbs_level_two_item_alpha);
+          copy(layer[get(item_name)].bgcolor,    settings.hama_thumbs_level_two_item_color);
+          copy(layer[get(item_name)].width,      settings.hama_thumbs_level_two_item_width);
+          copy(layer[get(item_name)].height,     settings.hama_thumbs_level_two_item_height);
+          if(i == 0,
+          copy(layer[get(item_name)].css,        settings.hama_thumbs_level_two_item_css_active);
+          ,
+          copy(layer[get(item_name)].css,        settings.hama_thumbs_level_two_item_css);
+          );
+          set( layer[get(item_name)].vcenter,    true);
+          set( layer[get(item_name)].align,      left);
+          set( layer[get(item_name)].menuindex,  get(i));
+          set( layer[get(item_name)].scenentwoname,  get(config.thumbs.category[get(i)].pano[0].name));
+          set( layer[get(item_name)].onhover,    showtext(get(html),STYLE2));
+          copy(layer[get(item_name)].roundedge,  settings.hama_thumbs_level_two_item_roundedge);
+          set( layer[get(item_name)].onclick,    'openscene(get(scenentwoname));hama_thumbs_level_one_config();activet_thumbs();changetwo();');
+         
+		);
+		mul(new_width,thumbs_cate_num,newoffset);
+		sub(new_width,settings.hama_thumbs_level_two_item_offset);
+		copy(layer[hama_thumbs_level_two_scroll].width, new_width);
+		delete(itemoffset);
+		delete(thumbs_cate_num);
+		delete(new_offset);
+	</action>
+
+	<action name="changetwo">
+
+			for(set(i,0),i LT config.thumbs.category.count,inc(i),
+			txtadd(changetwoname,'hama_humbs_level_two_item_',get(i));
+			copy(layer[get(changetwoname)].bgalpha,settings.hama_thumbs_level_two_bgalpha);
+			copy(layer[get(changetwoname)].bgcolor,settings.hama_thumbs_level_two_item_active_color);
+			copy(layer[get(changetwoname)].css,settings.hama_thumbs_level_two_item_css);
+
+			
+			);
+			set(layer[get(name)].bgalpha,1);
+			copy(layer[get(name)].css,settings.hama_thumbs_level_two_item_css_active);
+			copy(layer[get(name)].bgcolor,settings.hama_thumbs_level_two_item_color);
+	</action>
+	<action name="changetwomap">
+			
+			for(set(i,0),i LT config.thumbs.category.count,inc(i),
+			txtadd(map_two_1,'map_item_',get(i));
+			copy(layer[get(map_two_1)].bgalpha,settings.hama_thumbs_level_two_bgalpha);
+			copy(layer[get(map_two_1)].bgcolor,settings.hama_thumbs_level_two_item_active_color);
+			copy(layer[get(map_two_1)].css,settings.hama_thumbs_level_two_item_css);
+
+			);
+			set(layer[get(old_map_name)].bgalpha,1);
+			copy(layer[get(old_map_name)].css,settings.hama_thumbs_level_two_item_css_active);
+			copy(layer[get(old_map_name)].bgcolor,settings.hama_thumbs_level_two_item_color);
+	</action>
+	<action name="hama_thumbs_level_one_config">
+	if(%1 == -1,
+		set(menuindex,0);
+	  );
+	if(menuindex != old_item_index, 
+	<!-- 删除图层-->
+		txtadd(one_new_name,'hama_humbs_level_two_item_',get(menuindex));
+		txtadd(one_old_name,'hama_humbs_level_two_item_',get(old_item_index));
+		copy(layer[get(one_old_name)].bgalpha,settings.hama_thumbs_level_two_bgalpha);
+		set(layer[get(one_new_name)].bgalpha,1);
+
+	    removelayer(hama_thumbs_level_one_scroll,true);
+
+		copy(itemwidth,settings.hama_thumbs_level_one_item_width);
+        copy(itemoffset,settings.hama_thumbs_level_one_item_offset);
+        copy(itemindex,menuindex);
+        copy(thumbs_item_num,config.thumbs.category[get(itemindex)].pano.count);
+
+        set(xcenter,0);
+        set(thubmx,0);
+        set(thubmy,0);
+        set(nthubmx,0);
+        set(toffset,0);
+        mul(xcenter,itemwidth,0.5);
+        add(newoffset,itemoffset,settings.hama_thumbs_level_one_item_width);
+
+        <!-- 一级滚动层-->
+	    addlayer(hama_thumbs_level_one_scroll);
+	        set(layer[hama_thumbs_level_one_scroll].type,       container);
+	        set(layer[hama_thumbs_level_one_scroll].keep,       true);
+	        set(layer[hama_thumbs_level_one_scroll].visible,    true);
+	        set(layer[hama_thumbs_level_one_scroll].parent,     hama_thumbs_level_one);
+		if(device.flash,
+			set(layer[hama_thumbs_level_one_scroll].url,get(plugin_url.SCROLL_SWF));
+			,
+			set(layer[hama_thumbs_level_one_scroll].url,get(plugin_url.SCROLL_JS));
+		);
+	        copy(layer[hama_thumbs_level_one_scroll].height,    settings.hama_thumbs_level_one_height);
+	        set(layer[hama_thumbs_level_one_scroll].align,      center);
+	   
+	        set(layer[hama_thumbs_level_one_scroll].direction,  h);
+
+	    for(set(i,0),i LT thumbs_item_num,inc(i),
+	    	mul(toffset,itemoffset,i);
+            mul(thubmx,itemwidth,i);
+            add(thubmx,toffset);
+            add(thubmx,xcenter);
+            add(thubmx,settings.hama_thumbs_level_one_border_padding);
+            add(thubmy,thubmx,itemwidth);
+            add(thubmy,toffset);
+            add(thubmy,xcenter);
+            add(thubmy,settings.hama_thumbs_level_one_border_padding);
+     	    mul(new_offset,newoffset,i);
+     	    add(new_offset,settings.hama_thumbs_level_one_border_padding);
+     	    <!-- 一级项目层-->
+            set(new_item_name,get(config.thumbs.category[get(itemindex)].pano[get(i)].name));
+            addlayer(get(new_item_name));
+	          set (layer[get(new_item_name)].type,      container);          
+	          set (layer[get(new_item_name)].parent,    hama_thumbs_level_one_scroll);
+	          set (layer[get(new_item_name)].keep,      true);
+	          copy(layer[get(new_item_name)].x,         new_offset); 
+	          copy(layer[get(new_item_name)].bgcolor,   settings.hama_thumbs_level_one_item_bgcolor); 
+	          copy(layer[get(new_item_name)].bgborder,  settings.hama_thumbs_level_one_item_border);
+	          copy(layer[get(new_item_name)].bgalpha,   settings.hama_thumbs_level_one_item_bgalpha);
+	          set (layer[get(new_item_name)].align,     left); 
+              copy(layer[get(new_item_name)].tx,        thubmx);        
+              copy(layer[get(new_item_name)].ty,        thubmy);  
+              copy(layer[get(new_item_name)].groupid,   itemindex); 
+	          copy(layer[get(new_item_name)].width,     settings.hama_thumbs_level_one_item_width);
+	          copy(layer[get(new_item_name)].height,    settings.hama_thumbs_level_one_item_height);
+ 
+            <!-- 一级图片层-->
+            txtadd(thumbs_two_item_bg,get(new_item_name),'_bg');
+            addlayer(get(thumbs_two_item_bg));
+	          set( layer[get(thumbs_two_item_bg)].type,         container);
+	          set( layer[get(thumbs_two_item_bg)].parent,       get(new_item_name));
+	          set( layer[get(thumbs_two_item_bg)].keep,         true);
+	          set( layer[get(thumbs_two_item_bg)].align,        center);
+	          set( layer[get(thumbs_two_item_bg)].url,          get(scene[get(config.thumbs.category[get(itemindex)].pano[get(i)].name)].thumburl));
+	          set( layer[get(thumbs_two_item_bg)].text,         get(scene[get(config.thumbs.category[get(itemindex)].pano[get(i)].name)].title));
+	          copy(layer[get(thumbs_two_item_bg)].width,        settings.hama_thumbs_level_one_item_width);
+	          copy(layer[get(thumbs_two_item_bg)].height,       settings.hama_thumbs_level_one_item_height);
+	          set( layer[get(thumbs_two_item_bg)].onhover,      showtext(get(text),STYLE2));
+	          set( layer[get(thumbs_two_item_bg)].linkedscene,  get(config.thumbs.category[get(itemindex)].pano[get(i)].name));
+	          set( layer[get(thumbs_two_item_bg)].onclick,      'openscene(get(linkedscene));');
+
+	        txtadd(new_item_title,get(new_item_name),'_txt');
+        	addlayer(get(new_item_title));
+	          set (layer[get(new_item_title)].type,          text);
+	          set (layer[get(new_item_title)].parent,        get(new_item_name));
+	          set (layer[get(new_item_title)].keep,          true);
+	          set (layer[get(new_item_title)].bgcolor,       settings.hama_thumbs_container_bgcolor);
+	          copy(layer[get(new_item_title)].bgalpha,       settings.hama_thumbs_level_one_item_title_bgalpha);
+	          copy(layer[get(new_item_title)].css,           settings.hama_thumbs_level_one_item_title_css);
+	          set (layer[get(new_item_title)].html,          get(scene[get(config.thumbs.category[get(itemindex)].pano[get(i)].name)].title));
+	          set (layer[get(new_item_title)].wordwrap,      true);
+	          copy(layer[get(new_item_title)].y,             settings.hama_thumbs_level_one_item_title_y);
+	          set (layer[get(new_item_title)].align,         bottom);
+	          set (layer[get(new_item_title)].vcenter,       true);
+	          copy(layer[get(new_item_title)].width,         settings.hama_thumbs_level_one_item_width);
+	          copy(layer[get(new_item_title)].height         settings.hama_thumbs_level_one_item_title_height);
+	          set (layer[get(new_item_title)].linkedscene,   get(config.thumbs.category[get(itemindex)].pano[get(i)].name));
+	          set (layer[get(new_item_title)].onclick,       'openscene(get(linkedscene));');
+	    );
+     	mul(new_thumbs_two_item,thumbs_item_num,newoffset);
+        sub(new_thumbs_two_item,itemoffset);
+        mul(borderpadding,2,settings.hama_thumbs_level_one_border_padding);
+        add(new_thumbs_two_item,borderpadding);
+        copy(layer[hama_thumbs_level_one_scroll].width, new_thumbs_two_item);
+        );
+        copy(old_item_index,itemindex);
+	</action>
+	<action name="openscene">
+		if(scene[get(xml.scene)].name != %1 ,
+		loadscene(%1,null, get(settings.loadscene_flags), get(settings.loadscene_blend));
+		);
+	</action>
+
+	<action name="thumbs_state">
+			tween(layer[hama_thumbs_container].alpha,999,999,easeOutQuint,set(layer[hama_thumbs_container].enabled,false);set(layer[hama_thumbs_container].visible,false););
+			if(layer[hama_thumbs_container].state == 'open',
+				set(layer[hama_thumbs_container].state,'close');
+				);
+	</action>
+
+	<action name="thumbs_show">
+	if(layer[hama_thumbs_container].state != 'open',
+			set(layer[hama_thumbs_container].enabled,true);
+			set(layer[hama_thumbs_container].visible,true);
+			set(layer[hama_thumbs_container].state,'open');
+			tween(layer[hama_thumbs_container].alpha,1,1,easeOutQuint);
+			,
+			set(layer[hama_thumbs_container].state,'close');
+			set(layer[hama_thumbs_container].enabled,false);			
+			tween(layer[hama_thumbs_container].alpha,0,1,easeOutQuint,set(layer[hama_thumbs_container].visible,false));
+			);
+	</action>
+
+	<action name="ChangeTwoBgalpha">
+		
+		
+		for(set(i,0),i LT config.thumbs.category.count,inc(i),
+			txtadd(one_old_name,'hama_humbs_level_two_item_',get(i));
+
+			copy(layer[get(one_old_name)].bgalpha,settings.hama_thumbs_level_two_bgalpha);
+			copy(layer[get(one_old_name)].bgcolor,settings.hama_thumbs_level_two_item_active_color);
+			copy(layer[get(one_old_name)].css,settings.hama_thumbs_level_two_item_css);
+
+			txtadd(map_item_name,'map_item_',get(i));
+
+			copy(layer[get(map_item_name)].bgalpha,settings.hama_thumbs_level_two_bgalpha);
+			copy(layer[get(map_item_name)].bgcolor,settings.hama_thumbs_level_two_item_active_color);
+			copy(layer[get(map_item_name)].css,settings.hama_thumbs_level_two_item_css);
+
+
+			for(set(j,0),j LT config.thumbs.category[get(i)].pano.count,inc(j),
+				if(config.thumbs.category[get(i)].pano[get(j)].name == scene[get(xml.scene)].name,
+					
+					copy(new_index,i);
+					copy(settings.load_index,i);
+					copy(menuindex,i);
+					txtadd(old_map_name1,'map_item_',get(menuindex));
+					set(old_map_name,get(old_map_name1));
+				);
+			);
+		);
+		if(settings.load_index != -1,
+			hama_thumbs_level_one_config();
+			activet_thumbs();
+			map_menu_config(settings.load_index);
+			);
+		txtadd(one_name,'hama_humbs_level_two_item_',get(new_index));
+	<!--	txtadd(map_name1,'hama_humbs_level_two_item_',get(new_index)); -->
+		set(layer[get(one_name)].bgalpha,1);
+		copy(layer[get(one_name)].bgcolor,settings.hama_thumbs_level_two_item_color);
+		copy(layer[get(one_name)].css,settings.hama_thumbs_level_two_item_css_active);
+	<!--	
+		set(layer[get(map_name1)].bgalpha,1);
+		copy(layer[get(map_name1)].bgcolor,settings.hama_thumbs_level_two_item_color);
+		copy(layer[get(map_name1)].css,settings.hama_thumbs_level_two_item_css_active);
+		-->
+	</action>
+	<action name="activet_thumbs">
+
+		copy(layer[get(old_scene_name)].bgborder,settings.hama_thumbs_level_one_item_border);
+		copy(layer[get(scene[get(xml.scene)].name)].bgborder,settings.hama_thumbs_level_one_item_active_border);
+		copy(old_scene_name,scene[get(xml.scene)].name);
+	
+	</action>
+
+	
+
+	<action name="map_menu_config">
+		set(map_width,60);
+		set(map_offset,10);
+		set(map_count,get(config.thumbs.category.count));
+		mul(zkd,map_width,map_count);
+		mul(zoff,map_offset,map_count);
+		add(srcoll_width,zkd,zoff);
+		sub(srcoll_width,10);
+		add(new_map_x,map_width,map_offset);
+		for(set(i,0), i LT map_count,inc(i),
+
+				mul(new_map_offset,new_map_x,i);
+				txtadd(map_name,'map_item_',get(i));
+				addlayer(get(map_name));
+				set(layer[get(map_name)].parent,'map_menu_scroll');
+				set(layer[get(map_name)].type,'container');
+				set(layer[get(map_name)].width,'60');
+				set(layer[get(map_name)].height,'25');
+				set(layer[get(map_name)].align,'left');
+				set(layer[get(map_name)].x,-100);
+				if(i == 0 ,
+				set(layer[get(map_name)].bgalpha,'0.');
+				set(layer[get(map_name)].bgcolor,'0x000000');
+				,
+				set(layer[get(map_name)].bgalpha,'0.4');
+				set(layer[get(map_name)].bgcolor,'0xffffff');
+				);
+				txtadd(map_title,'map_title_',get(i));
+				addlayer(get(map_title));
+				set(layer[get(map_title)].parent,get(map_name));
+				set(layer[get(map_title)].type,'text');
+				set(layer[get(map_title)].name1,get(map_title));
+				set(layer[get(map_title)].width,'60');
+				set(layer[get(map_title)].height,'25');
+				set(layer[get(map_title)].align,'center');
+				set(layer[get(map_title)].vcenter,'true');
+				set(layer[get(map_title)].bgalpha,'0');
+				set(layer[get(map_title)].map_scene,get(config.thumbs.category[get(i)].pano[0].name));
+				set(layer[get(map_title)].html,get(config.thumbs.category[get(i)].title));
+				set(layer[get(map_title)].css,'color:0xFFFFFF;text-align:center');
+				set(layer[get(map_title)].onclick,'set(old_map_name,get(name1));openscene(get(map_scene));');
+
+			);
+		set(layer[map_menu_scroll].width,get(srcoll_width));
+	</action>
+
+</krpano>

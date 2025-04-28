@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我校成功举办2025年"互联网+"大学生创新创业大赛 - 滁滁大学</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .news-page {
+            background: var(--bg-light);
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .news-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 60px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-header {
+            text-align: left;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .news-header::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+        }
+
+        .news-header h1 {
+            font-size: 2.8em;
+            color: var(--text-color);
+            margin-bottom: 25px;
+            line-height: 1.4;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-meta {
+            color: var(--meta-text);
+            font-size: 0.95em;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        .news-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .news-meta i {
+            color: var(--primary-color);
+        }
+
+        .news-content {
+            line-height: 1.8;
+            color: var(--text-color);
+            font-size: 1.1em;
+            letter-spacing: 0.3px;
+        }
+
+        .news-content p {
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .news-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            transform: scale(1.02);
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .back-home i {
+            font-size: 0.9em;
+            transition: transform 0.3s ease;
+        }
+
+        .back-home:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .back-home:hover i {
+            transform: translateX(-4px);
+        }
+
+        /* 深色模式适配 */
+        [data-theme="dark"] .news-container {
+            background: rgba(30, 30, 30, 0.7);
+            border: 1px solid rgba(51, 153, 255, 0.05);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3),
+                        inset 0 0 30px var(--card-glow);
+        }
+
+        [data-theme="dark"] .news-header::after {
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+        }
+
+        [data-theme="dark"] .news-image {
+            filter: brightness(0.85);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .news-container {
+                padding: 30px;
+            }
+
+            .news-header h1 {
+                font-size: 2em;
+            }
+
+            .news-meta {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="news-page">
+        <div class="news-container">
+            <a href="../index.html" class="back-home">
+                <i class="fas fa-chevron-left"></i>
+                返回首页
+            </a>
+            <div class="news-header">
+                <h1>我校成功举办2025年"互联网+"大学生创新创业大赛</h1>
+                <div class="news-meta">
+                    <span><i class="far fa-calendar"></i> 发布时间：2025-05-15</span>
+                    <span><i class="far fa-building"></i> 来源：滁滁大学新闻中心</span>
+                </div>
+            </div>
+            <img src="../images/news1.jpg" alt="创新创业大赛现场" class="news-image">
+            <div class="news-content">
+                <p>5月15日，2025年滁滁大学"互联网+"大学生创新创业大赛在图书馆报告厅成功举办。本次大赛共有来自全校12个学院的300余支团队参赛，参赛项目涵盖人工智能、大数据、物联网等多个领域。</p>
+                <p>经过激烈角逐，最终评选出金奖10项、银奖20项、铜奖30项。其中，信息工程学院张三团队的"智慧校园物联网平台"项目获得特等奖。</p>
+                <p>校长在闭幕式上表示，创新创业教育是高等教育改革的重要方向，学校将继续加大对学生创新创业的支持力度，为培养创新型人才提供更好的平台。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 深色模式选择弹窗 -->
+    <div class="theme-modal" id="themeModal">
+        <h3>选择深色模式类型</h3>
+        <div class="buttons">
+            <button class="cancel-btn" id="normalDarkMode">正常深色模式</button>
+            <button class="confirm-btn" id="specialDarkMode">特殊深色模式</button>
+        </div>
+    </div>
+    <div class="spotlight-mask" id="spotlightMask"></div>
+    <div class="spotlight-center" id="spotlightCenter"></div>
+    <button class="theme-toggle" aria-label="切换深色模式">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add("visible");
+        });
+    </script>
+</body>
+</html>

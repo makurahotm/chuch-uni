@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滁滁大学与华为公司签署战略合作协议 - 滁滁大学</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 页面过渡动画 */
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s ease-in-out;
+        }
+        body.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .news-detail {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            transition: var(--transition-smooth);
+        }
+
+        .back-home:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .news-meta {
+            color: var(--meta-text);
+            margin-bottom: 20px;
+        }
+
+        .news-meta span {
+            margin-right: 20px;
+        }
+
+        .news-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .news-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+
+        .news-content p {
+            margin-bottom: 15px;
+        }
+
+        /* 深色模式适配 */
+        [data-theme="dark"] .news-detail {
+            background: rgba(30, 30, 30, 0.7);
+            border: 1px solid rgba(51, 153, 255, 0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3),
+                        inset 0 0 30px var(--card-glow);
+        }
+
+        [data-theme="dark"] .news-image {
+            filter: brightness(0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="news-detail">
+        <a href="../index.html" class="back-home">返回首页</a>
+        <h1>滁滁大学与华为公司签署战略合作协议</h1>
+        <div class="news-meta">
+            <span><i class="far fa-calendar"></i> 发布时间：2025-05-10</span>
+            <span><i class="far fa-building"></i> 来源：滁滁大学新闻中心</span>
+        </div>
+        <img src="../images/news2.jpg" alt="签约仪式现场" class="news-image">
+        <div class="news-content">
+            <p>5月10日上午，滁滁大学与华为技术有限公司战略合作签约仪式在行政楼多功能厅举行。双方将在人才培养、科研合作、实验室建设等方面展开全方位合作。</p>
+            <p>根据协议，华为公司将在我校设立"华为ICT学院"，并提供最新的教学设备和技术支持。同时，双方将共同建设人工智能联合实验室，开展前沿技术研究。</p>
+            <p>此次合作将为我校学生提供更多实践机会，促进产学研深度融合，推动学校科研水平和人才培养质量的提升。</p>
+        </div>
+    </div>
+
+    <!-- 深色模式选择弹窗 -->
+    <div class="theme-modal" id="themeModal">
+        <h3>选择深色模式类型</h3>
+        <div class="buttons">
+            <button class="cancel-btn" id="normalDarkMode">正常深色模式</button>
+            <button class="confirm-btn" id="specialDarkMode">特殊深色模式</button>
+        </div>
+    </div>
+    <div class="spotlight-mask" id="spotlightMask"></div>
+    <div class="spotlight-center" id="spotlightCenter"></div>
+    <button class="theme-toggle" aria-label="切换深色模式">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add("visible");
+        });
+    </script>
+</body>
+</html>

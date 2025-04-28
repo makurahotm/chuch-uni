@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图书馆 - 滁滁大学</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .library-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+        }
+
+        .library-hero {
+            position: relative;
+            height: 400px;
+            background: url('../images/lib.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .library-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .search-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin: -50px 20px 0;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition-smooth);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0,51,102,0.1);
+            outline: none;
+        }
+
+        .search-btn {
+            padding: 15px 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .search-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .library-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: var(--transition-smooth);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .info-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card ul li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .info-card ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: var(--transition-smooth);
+            border: 2px solid white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .back-home:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating-card {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="library-page">
+        <div class="library-hero">
+            <div class="hero-content">
+                <h1>滁滁大学图书馆</h1>
+                <p>知识的殿堂，智慧的源泉</p>
+                <a href="../index.html" class="back-home">返回首页</a>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <h2>国家图书馆资源</h2>
+            <div class="search-box">
+                <a href="https://www.nlc.cn/web/index.shtml" target="_blank" class="search-btn" style="text-decoration: none; display: inline-block;">访问国家图书馆</a>
+            </div>
+        </div>
+
+        <div class="library-content">
+            <div class="info-grid">
+                <div class="info-card floating-card">
+                    <h3>开放时间</h3>
+                    <ul>
+                        <li>周一至周日：8:00-22:00</li>
+                        <li>节假日：9:00-21:00</li>
+                        <li>闭馆前30分钟停止借还</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card floating-card" style="animation-delay: 0.2s;">
+                    <h3>馆藏资源</h3>
+                    <ul>
+                        <li>纸质图书：200万册</li>
+                        <li>电子图书：100万册</li>
+                        <li>期刊杂志：2000种</li>
+                        <li>数据库：50个</li>
+                    </ul>
+                </div>
+
+                <div class="info-card floating-card" style="animation-delay: 0.4s;">
+                    <h3>借阅规则</h3>
+                    <ul>
+                        <li>本科生：最多可借10本</li>
+                        <li>研究生：最多可借15本</li>
+                        <li>教职工：最多可借20本</li>
+                        <li>借期均为30天</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 深色模式选择弹窗 -->
+    <div class="theme-modal" id="themeModal">
+        <h3>选择深色模式类型</h3>
+        <div class="buttons">
+            <button class="cancel-btn" id="normalDarkMode">正常深色模式</button>
+            <button class="confirm-btn" id="specialDarkMode">特殊深色模式</button>
+        </div>
+    </div>
+    <div class="spotlight-mask" id="spotlightMask"></div>
+    <div class="spotlight-center" id="spotlightCenter"></div>
+    <button class="theme-toggle" aria-label="切换深色模式">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add("visible");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教务系统 - 滁滁大学</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .academic-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+            padding: 40px 20px;
+        }
+
+        .academic-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .academic-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .academic-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .academic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            transition: var(--transition-smooth);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .login-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 40px auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: var(--transition-smooth);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0,51,102,0.1);
+            outline: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .login-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: var(--transition-smooth);
+            border: 2px solid white;
+        }
+
+        .back-home:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: var(--transition-smooth);
+        }
+
+        .theme-toggle:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="academic-page">
+        <div class="academic-container">
+            <header class="academic-header">
+                <h1>教务系统</h1>
+                <p>欢迎使用滁滁大学教务管理系统</p>
+                <a href="../index.html" class="back-home">返回首页</a>
+            </header>
+
+            <div class="academic-grid">
+                <div class="feature-card">
+                    <h3>课程管理</h3>
+                    <p>查看课表、选课管理、课程评价</p>
+                </div>
+                <div class="feature-card">
+                    <h3>成绩查询</h3>
+                    <p>学期成绩、历年成绩、学分统计</p>
+                </div>
+                <div class="feature-card">
+                    <h3>考试信息</h3>
+                    <p>考试安排、补考信息、成绩复核</p>
+                </div>
+                <div class="feature-card">
+                    <h3>教学评价</h3>
+                    <p>教学评价、教师评价、课程反馈</p>
+                </div>
+            </div>
+
+            <div class="login-section">
+                <h2>系统登录</h2>
+                <p style="margin-bottom: 20px; color: #666;">请使用校园统一身份认证登录</p>
+                <form action="../data/login.php" method="POST">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="请输入学号/工号" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码" required>
+                    </div>
+                    <button type="submit" class="login-btn">登录系统</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- 深色模式选择弹窗 -->
+    <div class="theme-modal" id="themeModal">
+        <h3>选择深色模式类型</h3>
+        <div class="buttons">
+            <button class="cancel-btn" id="normalDarkMode">正常深色模式</button>
+            <button class="confirm-btn" id="specialDarkMode">特殊深色模式</button>
+        </div>
+    </div>
+    <div class="spotlight-mask" id="spotlightMask"></div>
+    <div class="spotlight-center" id="spotlightCenter"></div>
+    <button class="theme-toggle" aria-label="切换深色模式">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add("visible");
+        });
+    </script>
+</body>
+</html>

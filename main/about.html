@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学校概况 - 滁滁大学</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 页面过渡动画 */
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s ease-in-out;
+        }
+        body.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .about-page {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .about-section {
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: #003366;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="about-page">
+        <header class="about-header">
+            <h1>学校概况</h1>
+            <a href="../index.html" class="back-home">返回首页</a>
+        </header>
+
+        <div class="about-section">
+            <h2>学校简介</h2>
+            <p>滁滁大学创建于1987年，是一所以理工为主的综合性大学。学校秉承"求实创新"的校训，坐落于安徽省滁州市，占地面积2000余亩。</p>
+            <div class="about-grid">
+                <div class="stat-card">
+                    <h3>在校生人数</h3>
+                    <div class="stat-number">20,000+</div>
+                    <p>来自全国各地的优秀学子</p>
+                </div>
+                <div class="stat-card">
+                    <h3>专业教师</h3>
+                    <div class="stat-number">1,200+</div>
+                    <p>其中博士学位教师占比40%以上</p>
+                </div>
+                <div class="stat-card">
+                    <h3>本科专业</h3>
+                    <div class="stat-number">54</div>
+                    <p>涵盖理工、文学、经管等多个学科</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>办学理念</h2>
+            <p>学校秉持"厚德、求实、创新、卓越"的办学理念，致力于培养具有社会责任感、创新精神和实践能力的高素质人才。</p>
+            <p>我们注重：</p>
+            <ul>
+                <li>理论与实践相结合的教学模式</li>
+                <li>产学研深度融合的发展道路</li>
+                <li>国际化视野的人才培养战略</li>
+                <li>创新创业能力的培养与提升</li>
+            </ul>
+        </div>
+
+        <div class="about-section">
+            <h2>发展历程</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>1987年</h3>
+                    <p>学校正式成立</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>1995年</h3>
+                    <p>获批成为本科院校</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>2005年</h3>
+                    <p>获得硕士学位授予权</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>2015年</h3>
+                    <p>入选省级重点建设高校</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>2025年</h3>
+                    <p>建校38周年，迈向新的发展阶段</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 深色模式选择弹窗 -->
+    <div class="theme-modal" id="themeModal">
+        <h3>选择深色模式类型</h3>
+        <div class="buttons">
+            <button class="cancel-btn" id="normalDarkMode">正常深色模式</button>
+            <button class="confirm-btn" id="specialDarkMode">特殊深色模式</button>
+        </div>
+    </div>
+    <div class="spotlight-mask" id="spotlightMask"></div>
+    <div class="spotlight-center" id="spotlightCenter"></div>
+    <button class="theme-toggle" aria-label="切换深色模式">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add("visible");
+        });
+    </script>
+</body>
+</html>

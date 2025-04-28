@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学工大厅 - 滁滁大学</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .affairs-page {
+            min-height: 100vh;
+            background: url('../images/loginbg.jpg') center/cover no-repeat fixed;
+            padding: 40px 20px;
+        }
+
+        .affairs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.5);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .affairs-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), rgba(255,255,255,0.2));
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            border-radius: 15px 15px 0 0;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background-blend-mode: lighten;
+        }
+
+        .affairs-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: var(--transition-smooth);
+            border: 2px solid white;
+        }
+
+        .back-home:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        .login-section {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .login-section h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: var(--transition-smooth);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0,51,102,0.1);
+            outline: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .affairs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .affairs-card {
+            background: rgba(248,249,250,0.7);
+            border-radius: 10px;
+            padding: 25px;
+            transition: var(--transition-smooth);
+            border-left: 4px solid var(--primary-color);
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .affairs-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .affairs-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+        }
+
+        .affairs-card h3::before {
+            content: '✦';
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        .affairs-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .affairs-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition-smooth);
+        }
+
+        .affairs-list li:last-child {
+            border-bottom: none;
+        }
+
+        .affairs-list li:hover {
+            padding-left: 10px;
+            color: var(--primary-color);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        @media (max-width: 600px) {
+            .affairs-page {
+                padding: 10px 2vw;
+                background-position: center top;
+            }
+            .affairs-container {
+                box-shadow: none;
+                background: rgba(255,255,255,0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="affairs-page">
+        <div class="affairs-container">
+            <header class="affairs-header">
+                <h1>学工大厅</h1>
+                <p>为同学们提供全方位的学生事务服务</p>
+                <a href="../index.html" class="back-home">返回首页</a>
+            </header>
+
+            <div class="login-section slide-in" style="animation-delay: 0.1s;">
+                <h2>登录系统</h2>
+                <form action="../data/login.php" method="POST" class="login-form">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="请输入学号" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码" required>
+                    </div>
+                    <button type="submit" class="login-btn">登录</button>
+                </form>
+            </div>
+
+            <div class="affairs-grid">
+                <div class="affairs-card slide-in" style="animation-delay: 0.2s;">
+                    <h3>奖助学金</h3>
+                    <ul class="affairs-list">
+                        <li>国家奖学金申请</li>
+                        <li>国家助学金办理</li>
+                        <li>校级奖学金评定</li>
+                        <li>勤工助学岗位申请</li>
+                    </ul>
+                </div>
+
+                <div class="affairs-card slide-in" style="animation-delay: 0.3s;">
+                    <h3>学生证件</h3>
+                    <ul class="affairs-list">
+                        <li>学生证补办</li>
+                        <li>校园卡挂失/补办</li>
+                        <li>在读证明开具</li>
+                        <li>成绩单打印</li>
+                    </ul>
+                </div>
+
+                <div class="affairs-card slide-in" style="animation-delay: 0.4s;">
+                    <h3>宿舍管理</h3>
+                    <ul class="affairs-list">
+                        <li>宿舍调换申请</li>
+                        <li>维修服务申请</li>
+                        <li>宿舍卫生评比</li>
+                        <li>假期住宿申请</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 深色模式选择弹窗 -->
+    <div class="theme-modal" id="themeModal">
+        <h3>选择深色模式类型</h3>
+        <div class="buttons">
+            <button class="cancel-btn" id="normalDarkMode">正常深色模式</button>
+            <button class="confirm-btn" id="specialDarkMode">特殊深色模式</button>
+        </div>
+    </div>
+    <div class="spotlight-mask" id="spotlightMask"></div>
+    <div class="spotlight-center" id="spotlightCenter"></div>
+    <button class="theme-toggle" aria-label="切换深色模式">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add("visible");
+            
+            // 为卡片添加点击效果
+            const cards = document.querySelectorAll('.affairs-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我校学子在全国大学生数学建模竞赛中获佳绩 - 滁滁大学</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 页面过渡动画 */
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s ease-in-out;
+        }
+        body.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="news-detail">
+        <a href="../index.html" class="back-home">返回首页</a>
+        <h1>我校学子在全国大学生数学建模竞赛中获佳绩</h1>
+        <div class="news-meta">
+            <span>发布时间：2025-05-05</span>
+            <span>来源：滁滁大学新闻中心</span>
+        </div>
+        <img src="../images/news3.jpg" alt="获奖学生合影" class="news-image">
+        <div class="news-content">
+            <p>在刚刚结束的2025年全国大学生数学建模竞赛中，我校参赛队伍取得历史最好成绩，共获得一等奖2项、二等奖5项。</p>
+            <p>本次比赛共有来自全国1200多所高校的28000多支队伍参赛。我校理学院数学系李四、王五等同学组成的参赛队伍，凭借出色的解题思路和创新方法获得一等奖。</p>
+            <p>指导教师表示，这次比赛的成功充分展现了我校学子的数学功底和创新能力，为学校在全国数学建模领域赢得了荣誉。</p>
+        </div>
+    </div>
+    <!-- 深色模式选择弹窗 -->
+    <div class="theme-modal" id="themeModal">
+        <h3>选择深色模式类型</h3>
+        <div class="buttons">
+            <button class="cancel-btn" id="normalDarkMode">正常深色模式</button>
+            <button class="confirm-btn" id="specialDarkMode">特殊深色模式</button>
+        </div>
+    </div>
+    <div class="spotlight-mask" id="spotlightMask"></div>
+    <div class="spotlight-center" id="spotlightCenter"></div>
+    <button class="theme-toggle" aria-label="切换深色模式">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add("visible");
+        });
+    </script>
+</body>
+</html>

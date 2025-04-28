@@ -406,8 +406,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const vrModal = document.getElementById('vrModal');
     const onlineVRBtn = document.getElementById('onlineVR');
     const localVRBtn = document.getElementById('localVR');
+    const directVRBtn = document.getElementById('directVR');
 
-    if (vrBtns && vrModal && onlineVRBtn && localVRBtn) {
+    if (vrBtns && vrModal && onlineVRBtn && localVRBtn && directVRBtn) {
         vrBtns.forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -420,6 +421,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.target === vrModal) {
                 vrModal.style.display = 'none';
             }
+        });
+
+        // 直接打开（在域名下）按钮
+        directVRBtn.addEventListener('click', function() {
+            window.location.href = 'vr/index.html';
+            vrModal.style.display = 'none';
         });
 
         // 在线VR按钮
